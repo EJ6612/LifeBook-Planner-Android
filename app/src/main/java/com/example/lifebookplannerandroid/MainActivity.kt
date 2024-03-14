@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val createNewEventView = findViewById<LinearLayout>(R.id.newEventPopUpHome)
 
         createEventButton.setOnClickListener {
-            createNewEventView.visibility = View.GONE
+            createNewEventView.visibility = View.VISIBLE
         }
 
         saveButton.setOnClickListener {
