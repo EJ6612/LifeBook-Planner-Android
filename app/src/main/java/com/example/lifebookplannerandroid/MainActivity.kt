@@ -12,15 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
-        val FILE_NAME = "lifeBook.json"
-    }
-
-    private val saveButton = findViewById<Button>(R.id.saveEventButton)
-    private val createEventButton = findViewById<Button>(R.id.createNewEventButton)
-    private val eventList = EventList(filesDir)
-    private val createNewEventView = findViewById<LinearLayout>(R.id.newEventPopUpHome)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,6 +21,11 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }*/
+
+        val saveButton = findViewById<Button>(R.id.saveEventButton)
+        val createEventButton = findViewById<Button>(R.id.createNewEventButton)
+        val eventList = EventList(filesDir)
+        val createNewEventView = findViewById<LinearLayout>(R.id.newEventPopUpHome)
 
         createEventButton.setOnClickListener {
             createNewEventView.visibility = View.GONE
@@ -57,5 +53,10 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    companion object {
+        val FILE_NAME = "lifeBook.json"
+    }
+
 
 }
