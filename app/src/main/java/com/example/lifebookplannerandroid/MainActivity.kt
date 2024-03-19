@@ -54,22 +54,22 @@ class MainActivity : AppCompatActivity() {
         saveButton.setOnClickListener {
             // Here you handle the click event of the button
             // You can extract information from your views and save it
-            val eventName = findViewById<EditText>(R.id.eventNameEntry)
-            val date = findViewById<EditText>(R.id.eventDateEntry)
-            val time = findViewById<EditText>(R.id.eventTimeEntry)
-            val location = findViewById<EditText>(R.id.eventLocationEntry)
+            val eventName = findViewById<EditText>(R.id.eventNameEntry).text.toString()
+            val date = findViewById<EditText>(R.id.eventDateEntry).text.toString()
+            val time = findViewById<EditText>(R.id.eventTimeEntry).text.toString()
+            val location = findViewById<EditText>(R.id.eventLocationEntry).text.toString()
 
             // Create a new LifeEvent instance with the extracted information
             val newEvent = LifeEvent(eventName, date, time, location)
 
             // Call your function to save the new event
-            eventList.taskList.add(newEvent)
+            eventList.saveNewEvent(newEvent)
             createNewEventView.visibility = View.GONE
 
-            eventName.text.clear()
-            date.text.clear()
-            time.text.clear()
-            location.text.clear()
+//            eventName.text.clear()
+//            date.text.clear()
+//            time.text.clear()
+//            location.text.clear()
         }
 
 
