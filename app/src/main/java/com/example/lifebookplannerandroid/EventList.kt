@@ -21,6 +21,14 @@ class EventList(private val filesDir: File) {
         return emptyList()
     }
 
+    fun displayEvents(events: List<LifeEvent>) {
+        // Implement your logic to display events here
+        for (event in events) {
+            println(event) // Replace this with your actual display logic
+        }
+    }
+
+
     fun saveNewEvent(event: LifeEvent) {
         try {
             taskList.add(event)
