@@ -64,12 +64,14 @@ class MainActivity : AppCompatActivity() {
 
             // Call your function to save the new event
             eventList.saveNewEvent(newEvent)
-            createNewEventView.visibility = View.GONE
 
-//            eventName.text.clear()
-//            date.text.clear()
-//            time.text.clear()
-//            location.text.clear()
+
+            findViewById<EditText>(R.id.eventNameEntry).setText("")
+            findViewById<EditText>(R.id.eventDateEntry).setText("")
+            findViewById<EditText>(R.id.eventTimeEntry).setText("")
+            findViewById<EditText>(R.id.eventLocationEntry).setText("")
+            
+            createNewEventView.visibility = View.GONE
         }
 
 
