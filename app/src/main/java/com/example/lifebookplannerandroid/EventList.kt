@@ -23,10 +23,9 @@ class EventList(private val filesDir: File) {
 
     fun saveNewEvent(event: LifeEvent) {
         try {
-            val events = loadEvents().toMutableList()
-            events.add(event)
+            taskList.add(event)
 
-            val json = Gson().toJson(events)
+            val json = Gson().toJson(taskList)
             FileWriter(File(filesDir, MainActivity.FILE_NAME)).use { it.write(json) }
 
             println("Event saved successfully")
