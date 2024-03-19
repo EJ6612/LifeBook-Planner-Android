@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="16dp"
-    android:background="@color/white">
+    android:background="@color/weird_cyan">
 
     <TextView
         android:layout_width="wrap_content"
