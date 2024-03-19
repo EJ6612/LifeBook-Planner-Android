@@ -12,6 +12,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -23,28 +25,40 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-        }*/
+        }
+
+        val eventList = EventList(filesDir)
+
+        var events: List<LifeEvent> = eventList.loadCurrentEvents()
 
         //RecyclerView Code
         recyclerView = findViewById(R.id.eventCardsRecycler)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        val eventCardsData = listOf( //[insert a for loop or something to insert all event cards]
-            EventCardsItem("NAME", "10:00", "MARCH 19 2024", "UR MOMS HOUSE")
-             )
+        //val eventCardsData = listOf( //[insert a for loop or something to insert all event cards]
+        //    EventCardsItem("NAME", "10:00", "MARCH 19 2024", "UR MOMS HOUSE"),
+        //    EventCardsItem()
+
+        //     )
+
+
+        val eventCardItems = events.map {event ->
+            EventCardsItem(event.eventName, event.eventTime, event.eventDate, event.eventLocation)
+        }
+
+
         //EventCardsItem()
-        val adapter = EventCardsAdapter(eventCardsData)
+        val adapter = EventCardsAdapter(eventCardItems)
         recyclerView.adapter = adapter
         //End of RecyclerView Code
 
 
         val saveButton = findViewById<Button>(R.id.saveEventButton)
         val createEventButton = findViewById<Button>(R.id.createNewEventButton)
-        val eventList = EventList(filesDir)
         val createNewEventView = findViewById<LinearLayout>(R.id.newEventPopUpHome)
 
         createEventButton.setOnClickListener {
@@ -62,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             // Create a new LifeEvent instance with the extracted information
             val newEvent = LifeEvent(eventName, date, time, location)
 
-            // Call your function to save the new event
+            // Call function to save the new event
             eventList.saveNewEvent(newEvent)
 
 

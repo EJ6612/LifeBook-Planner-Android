@@ -1,12 +1,10 @@
 package com.example.lifebookplannerandroid
 
-import android.view.View
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
-import com.example.lifebookplannerandroid.MainActivity
 
 
 class EventList(private val filesDir: File) {
@@ -43,7 +41,7 @@ class EventList(private val filesDir: File) {
     }
 
 
-    fun loadCurrentEvents(v: View): List<LifeEvent> {
+    fun loadCurrentEvents(): List<LifeEvent> {
         val file = File(filesDir, MainActivity.FILE_NAME)
         if (!file.exists()) {
             return emptyList()

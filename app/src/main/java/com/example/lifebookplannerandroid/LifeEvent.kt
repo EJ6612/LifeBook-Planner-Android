@@ -1,15 +1,13 @@
 package com.example.lifebookplannerandroid
 
-import android.widget.EditText
-
-class LifeEvent  (eventName: String, eventDate: String, eventDetails: String, eventLocation: String) {
+class LifeEvent  (eventName: String, eventDate: String, eventTime: String, eventLocation: String) {
     var eventName: String = eventName
         get() = field
         set(value) { field = value }
     var eventDate: String = eventDate
         get() = field
         set(value) { field = value }
-    var eventDetails: String = eventDetails
+    var eventTime: String = eventTime
         get() = field
         set(value) { field = value }
     var eventLocation: String = eventLocation
