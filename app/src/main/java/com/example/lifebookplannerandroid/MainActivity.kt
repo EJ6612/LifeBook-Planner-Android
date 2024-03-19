@@ -46,10 +46,14 @@ class MainActivity : AppCompatActivity() {
             eventList.taskList.add(newEvent)
             createNewEventView.visibility = View.GONE
 
+
+
             eventName.text.clear()
             date.text.clear()
             time.text.clear()
             location.text.clear()
+
+//            eventList.displayEvents(eventList.taskList)
         }
 
     }
