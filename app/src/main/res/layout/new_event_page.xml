@@ -50,20 +50,24 @@
                 android:hint="Event Name" />
 
             <EditText
-                android:id="@+id/eventDateEntry"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:hint="Date"
-                android:inputType="date" />
-
-            <EditText
                 android:id="@+id/eventTimeEntry"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:ems="10"
                 android:hint="Time"
-                android:inputType="time" />
+                android:inputType="datetime"
+                android:focusable="false"
+                android:clickable="true" />
+
+            <EditText
+                android:id="@+id/eventDateEntry"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:hint="Date"
+                android:inputType="datetime"
+                android:focusable="false"
+                android:clickable="true"/>
 
             <EditText
                 android:id="@+id/eventLocationEntry"

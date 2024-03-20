@@ -2,6 +2,8 @@ package com.example.lifebookplannerandroid
 
 //import EventList
 //import LifeEvent
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +18,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,29 +36,19 @@ class MainActivity : AppCompatActivity() {
 
         val eventList = EventList(filesDir)
         eventList.loadCurrentEvents()
-//        var events: List<LifeEvent> = eventList.loadCurrentEvents()
 
         //RecyclerView Code
         recyclerView = findViewById(R.id.eventCardsRecycler)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        //val eventCardsData = listOf( //[insert a for loop or something to insert all event cards]
-        //    EventCardsItem("NAME", "10:00", "MARCH 19 2024", "UR MOMS HOUSE"),
-        //    EventCardsItem()
-
-        //     )
-
-
         val eventCardItems = eventList.taskList.map {event ->
             EventCardsItem(event.eventName, event.eventTime, event.eventDate, event.eventLocation)
         }
-
 
         //EventCardsItem()
         val adapter = EventCardsAdapter(eventCardItems)
         recyclerView.adapter = adapter
         //End of RecyclerView Code
-
 
         val saveButton = findViewById<Button>(R.id.saveEventButton)
         val createEventButton = findViewById<Button>(R.id.createNewEventButton)
@@ -63,24 +56,69 @@ class MainActivity : AppCompatActivity() {
         val backButtonTop = findViewById<Button>(R.id.eventPageBackTop)
         val backButtonBottom = findViewById<Button>(R.id.eventPageBackBottom)
 
+        val eventNameField = findViewById<EditText>(R.id.eventNameEntry)
+        val eventDateField = findViewById<EditText>(R.id.eventDateEntry)
+        val eventTimeField = findViewById<EditText>(R.id.eventTimeEntry)
+        val eventLocationField = findViewById<EditText>(R.id.eventLocationEntry)
+
         createEventButton.setOnClickListener {
             createNewEventView.visibility = View.VISIBLE
+        }
+
+        //Instead of the user typing in the time, bring in the android TimePicker
+        eventTimeField.setOnClickListener {
+            val newCalendar = Calendar.getInstance()
+
+            val hour = newCalendar.get(Calendar.HOUR_OF_DAY)
+            val minute = newCalendar.get(Calendar.MINUTE)
+
+            val timePickerDialog = TimePickerDialog(
+                this,
+                { view, hourOfDay, minute ->
+                    eventTimeField.setText("$hourOfDay:$minute")
+                },
+                hour,
+                minute,
+                false
+            )
+
+            timePickerDialog.show()
+        }
+
+        //Instead of the user typing in the date, bring in the android DatePicker
+        eventDateField.setOnClickListener {
+            val newCalendar = Calendar.getInstance()
+
+            val day = newCalendar.get(Calendar.DATE)
+            val month = newCalendar.get(Calendar.MONTH)
+            val year = newCalendar.get(Calendar.YEAR)
+
+            val datePickerDialog = DatePickerDialog(
+                this,
+                { view, selectedYear, selectedMonth, selectedDay ->
+                    eventDateField.setText("${selectedMonth + 1}/$selectedDay/$selectedYear")
+                },
+                year,
+                month,
+                day
+            )
+
+            datePickerDialog.show()
         }
 
         saveButton.setOnClickListener {
             // Here you handle the click event of the button
             // You can extract information from your views and save it
-            val eventName = findViewById<EditText>(R.id.eventNameEntry).text.toString()
-            val date = findViewById<EditText>(R.id.eventDateEntry).text.toString()
-            val time = findViewById<EditText>(R.id.eventTimeEntry).text.toString()
-            val location = findViewById<EditText>(R.id.eventLocationEntry).text.toString()
+            val eventName = eventNameField.text.toString()
+            val eventDate = eventDateField.text.toString()
+            val eventTime = eventTimeField.text.toString()
+            val eventLocation = eventLocationField.text.toString()
 
             // Create a new LifeEvent instance with the extracted information
-            val newEvent = LifeEvent(eventName, date, time, location)
+            val newEvent = LifeEvent(eventName, eventDate, eventTime, eventLocation)
 
             // Call function to save the new event
             eventList.saveNewEvent(newEvent)
-
 
             findViewById<EditText>(R.id.eventNameEntry).setText("")
             findViewById<EditText>(R.id.eventDateEntry).setText("")
@@ -90,17 +128,17 @@ class MainActivity : AppCompatActivity() {
             //This is the new stuff that makes it load on the save button: Alex
 //            var newEvents: List<LifeEvent> = eventList.loadCurrentEvents()
             eventList.loadCurrentEvents()
-            val neweventCardItems = eventList.taskList.map {event ->
+            val newEventCardItems = eventList.taskList.map {event ->
                 EventCardsItem(event.eventName, event.eventTime, event.eventDate, event.eventLocation)
             }
-            val newadapter = EventCardsAdapter(neweventCardItems)
-            recyclerView.adapter = newadapter
+            val newAdapter = EventCardsAdapter(newEventCardItems)
+            recyclerView.adapter = newAdapter
             // New stuff ends here
 
             createNewEventView.visibility = View.GONE
         }
 
-
+        //when the user taps the "empty space" above the new event card
         backButtonTop.setOnClickListener {
 
             findViewById<EditText>(R.id.eventNameEntry).setText("")
@@ -112,6 +150,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        //when the user taps the "empty space" below the new event card
         backButtonBottom.setOnClickListener {
 
             findViewById<EditText>(R.id.eventNameEntry).setText("")
