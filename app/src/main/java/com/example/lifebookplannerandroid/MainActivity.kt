@@ -84,6 +84,15 @@ class MainActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.eventDateEntry).setText("")
             findViewById<EditText>(R.id.eventTimeEntry).setText("")
             findViewById<EditText>(R.id.eventLocationEntry).setText("")
+
+            //This is the new stuff that makes it load on the save button: Alex
+            var newEvents: List<LifeEvent> = eventList.loadCurrentEvents()
+            val neweventCardItems = newEvents.map {event ->
+                EventCardsItem(event.eventName, event.eventTime, event.eventDate, event.eventLocation)
+            }
+            val newadapter = EventCardsAdapter(neweventCardItems)
+            recyclerView.adapter = newadapter
+            // New stuff ends here
             
             createNewEventView.visibility = View.GONE
         }
