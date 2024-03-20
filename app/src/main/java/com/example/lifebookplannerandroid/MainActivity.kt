@@ -60,6 +60,8 @@ class MainActivity : AppCompatActivity() {
         val saveButton = findViewById<Button>(R.id.saveEventButton)
         val createEventButton = findViewById<Button>(R.id.createNewEventButton)
         val createNewEventView = findViewById<LinearLayout>(R.id.newEventPopUpHome)
+        val backButtonTop = findViewById<Button>(R.id.eventPageBackTop)
+        val backButtonBottom = findViewById<Button>(R.id.eventPageBackBottom)
 
         createEventButton.setOnClickListener {
             createNewEventView.visibility = View.VISIBLE
@@ -89,6 +91,27 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        backButtonTop.setOnClickListener {
+
+            findViewById<EditText>(R.id.eventNameEntry).setText("")
+            findViewById<EditText>(R.id.eventDateEntry).setText("")
+            findViewById<EditText>(R.id.eventTimeEntry).setText("")
+            findViewById<EditText>(R.id.eventLocationEntry).setText("")
+
+            createNewEventView.visibility = View.GONE
+
+        }
+
+        backButtonBottom.setOnClickListener {
+
+            findViewById<EditText>(R.id.eventNameEntry).setText("")
+            findViewById<EditText>(R.id.eventDateEntry).setText("")
+            findViewById<EditText>(R.id.eventTimeEntry).setText("")
+            findViewById<EditText>(R.id.eventLocationEntry).setText("")
+
+            createNewEventView.visibility = View.GONE
+
+        }
 
     }
 
