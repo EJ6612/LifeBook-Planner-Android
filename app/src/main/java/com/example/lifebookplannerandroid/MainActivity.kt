@@ -87,6 +87,7 @@ class MainActivity : AppCompatActivity() {
 
             //This is the new stuff that makes it load on the save button: Alex
 //            var newEvents: List<LifeEvent> = eventList.loadCurrentEvents()
+            eventList.loadCurrentEvents()
             val neweventCardItems = eventList.taskList.map {event ->
                 EventCardsItem(event.eventName, event.eventTime, event.eventDate, event.eventLocation)
             }
