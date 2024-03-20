@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         val eventList = EventList(filesDir)
-
-        var events: List<LifeEvent> = eventList.loadCurrentEvents()
+        eventList.loadCurrentEvents()
+//        var events: List<LifeEvent> = eventList.loadCurrentEvents()
 
         //RecyclerView Code
         recyclerView = findViewById(R.id.eventCardsRecycler)
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         //     )
 
 
-        val eventCardItems = events.map {event ->
+        val eventCardItems = eventList.taskList.map {event ->
             EventCardsItem(event.eventName, event.eventTime, event.eventDate, event.eventLocation)
         }
 
@@ -86,7 +86,17 @@ class MainActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.eventDateEntry).setText("")
             findViewById<EditText>(R.id.eventTimeEntry).setText("")
             findViewById<EditText>(R.id.eventLocationEntry).setText("")
-            
+
+            //This is the new stuff that makes it load on the save button: Alex
+//            var newEvents: List<LifeEvent> = eventList.loadCurrentEvents()
+            eventList.loadCurrentEvents()
+            val neweventCardItems = eventList.taskList.map {event ->
+                EventCardsItem(event.eventName, event.eventTime, event.eventDate, event.eventLocation)
+            }
+            val newadapter = EventCardsAdapter(neweventCardItems)
+            recyclerView.adapter = newadapter
+            // New stuff ends here
+
             createNewEventView.visibility = View.GONE
         }
 

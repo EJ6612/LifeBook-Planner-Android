@@ -41,19 +41,19 @@ class EventList(private val filesDir: File) {
     }
 
 
-    fun loadCurrentEvents(): List<LifeEvent> {
+    fun loadCurrentEvents() {
         val file = File(filesDir, MainActivity.FILE_NAME)
         if (!file.exists()) {
-            return emptyList()
+            taskList = emptyList<LifeEvent>().toMutableList()
         }
 
         return try {
             val reader = FileReader(file)
             val eventType = object : TypeToken<List<LifeEvent>>() {}.type
-            Gson().fromJson(reader, eventType)
+            taskList = Gson().fromJson(reader, eventType)
         } catch (e: Exception) {
             println("Error loading events: ${e.message}")
-            emptyList()
+            taskList = emptyList<LifeEvent>().toMutableList()
         }
     }
 
