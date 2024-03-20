@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         val eventList = EventList(filesDir)
-
-        var events: List<LifeEvent> = eventList.loadCurrentEvents()
+        eventList.loadCurrentEvents()
+//        var events: List<LifeEvent> = eventList.loadCurrentEvents()
 
         //RecyclerView Code
         recyclerView = findViewById(R.id.eventCardsRecycler)
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         //     )
 
 
-        val eventCardItems = events.map {event ->
+        val eventCardItems = eventList.taskList.map {event ->
             EventCardsItem(event.eventName, event.eventTime, event.eventDate, event.eventLocation)
         }
 
