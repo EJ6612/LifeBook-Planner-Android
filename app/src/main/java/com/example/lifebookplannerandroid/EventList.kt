@@ -14,19 +14,7 @@ class EventList(private val filesDir: File) {
         val FILE_NAME = "lifeBook.json"
     }
 
-    private fun loadEvents(): List<LifeEvent> {
-        // Return a default or empty list of events for now
-        return emptyList()
-    }
-
-    fun displayEvents(events: List<LifeEvent>) {
-        // Implement your logic to display events here
-        for (event in events) {
-            println(event) // Replace this with your actual display logic
-        }
-    }
-
-
+    //adds taskList to a Json file
     fun saveNewEvent(event: LifeEvent) {
         try {
             taskList.add(event)
@@ -41,6 +29,7 @@ class EventList(private val filesDir: File) {
     }
 
 
+    // reads Json file into taskList
     fun loadCurrentEvents() {
         val file = File(filesDir, MainActivity.FILE_NAME)
         if (!file.exists()) {
